@@ -1,15 +1,44 @@
 import React from "react";
-import { View } from "react-native";
-
-function MoreModal({ setModalVisible, deleteTask, editTask }) {
+import { Text, TouchableOpacity, View } from "react-native";
+import DeleteIcon from "../../assets/images/main/delete.svg";
+import EditIcon from "../../assets/images/main/edit.svg";
+function MoreModal({
+  setModalVisible,
+  deleteTask,
+  setMoreModal,
+  setTask,
+  task,
+}) {
   return (
-    <View className="flex-1 bg-red">
-      <View
-        style={{ backgroundColor: "#000000", opacity: 0.4, flex: 1 }}
-        onTouchEnd={() => setModalVisible(false)}
-      />
-
-      <View className="w-full bg-red p-5 m-5 rounded-2xl"></View>
+    <View>
+      <View>
+        <TouchableOpacity
+          className="flex-row justify-between w-full py-4 items-center"
+          onPress={() => {
+            setMoreModal(false);
+            setModalVisible(true);
+          }}
+        >
+          <Text className="font-semibold text-lg text-darkBlue">Edit Task</Text>
+          <EditIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={{ height: 1 }} className="w-full bg-lightGrey" />
+      <View>
+        <TouchableOpacity
+          className="flex-row justify-between w-full py-4 items-center"
+          onPress={() => {
+            deleteTask(task.id);
+            setMoreModal(false);
+            setTask("");
+          }}
+        >
+          <Text className="font-semibold text-lg text-darkBlue">
+            Delete Task
+          </Text>
+          <DeleteIcon />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

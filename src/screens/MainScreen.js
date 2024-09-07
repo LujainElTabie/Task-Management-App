@@ -11,13 +11,12 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Overlay from "react-native-modal-overlay";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../../FirebaseConfig";
-import DeleteIcon from "../assets/images/main/delete.svg";
-import EditIcon from "../assets/images/main/edit.svg";
 import FilterIcon from "../assets/images/main/filter.svg";
 import SearchIcon from "../assets/images/main/searchnormal.svg";
 import ArrowDown from "../assets/images/main/sortArrowDown.svg";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import MoreModal from "../components/Modals/MoreModal";
 import TaskModal from "../components/Modals/TaskModal";
 import Task from "../components/Task";
 import { useAddTask } from "../hooks/useAddTask";
@@ -279,36 +278,13 @@ function MainScreen() {
         }}
         childrenWrapperStyle={{ borderRadius: 16 }}
       >
-        <View>
-          <TouchableOpacity
-            className="flex-row justify-between w-full py-4 items-center"
-            onPress={() => {
-              setMoreModal(false);
-              setModalVisible(true);
-            }}
-          >
-            <Text className="font-semibold text-lg text-darkBlue">
-              Edit Task
-            </Text>
-            <EditIcon />
-          </TouchableOpacity>
-        </View>
-        <View style={{ height: 1 }} className="w-full bg-lightGrey" />
-        <View>
-          <TouchableOpacity
-            className="flex-row justify-between w-full py-4 items-center"
-            onPress={() => {
-              deleteTask(task.id);
-              setMoreModal(false);
-              setTask("");
-            }}
-          >
-            <Text className="font-semibold text-lg text-darkBlue">
-              Delete Task
-            </Text>
-            <DeleteIcon />
-          </TouchableOpacity>
-        </View>
+        <MoreModal
+          setModalVisible={setModalVisible}
+          setTask={setTask}
+          task={task}
+          setMoreModal={setMoreModal}
+          deleteTask={deleteTask}
+        />
       </Overlay>
       <Overlay
         visible={filterModal}
